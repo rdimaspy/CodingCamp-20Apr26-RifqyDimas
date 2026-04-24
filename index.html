@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A personal productivity dashboard with to-do list, focus timer, and quick links">
+    <title>Life Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Skip to main content link for keyboard navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Header Section -->
+    <header class="header" role="banner">
+        <div class="container">
+            <h1 class="visually-hidden">Life Dashboard</h1>
+            <nav class="header-controls" role="navigation" aria-label="Main controls">
+                <button 
+                    id="theme-toggle" 
+                    class="btn-icon" 
+                    aria-label="Toggle between light and dark theme"
+                    aria-pressed="false"
+                    title="Toggle theme">
+                    <span class="theme-icon" aria-hidden="true">🌙</span>
+                </button>
+                <button 
+                    id="settings-btn" 
+                    class="btn-icon" 
+                    aria-label="Open settings dialog"
+                    aria-haspopup="dialog"
+                    title="Settings">
+                    <span class="settings-icon" aria-hidden="true">⚙️</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main" role="main" id="main-content" tabindex="-1">
+        <div class="container">
+            
+            <!-- Greeting Section -->
+            <section class="greeting-section" aria-labelledby="greeting-heading">
+                <h2 id="greeting-heading" class="visually-hidden">Greeting and Current Time</h2>
+                <div class="greeting">
+                    <p id="greeting-text" class="greeting-text" role="status" aria-live="polite" aria-atomic="true">Good morning</p>
+                    <div class="datetime" role="group" aria-label="Current date and time">
+                        <time id="current-date" class="current-date" aria-live="off" aria-label="Current date"></time>
+                        <span class="datetime-separator" aria-hidden="true">|</span>
+                        <time id="current-time" class="current-time" aria-live="off" aria-label="Current time"></time>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Focus Timer Section -->
+            <section class="timer-section" aria-labelledby="timer-heading">
+                <h2 id="timer-heading" class="section-title">Focus Timer</h2>
+                <div class="timer">
+                    <div 
+                        id="timer-display" 
+                        class="timer-display" 
+                        role="timer" 
+                        aria-live="polite" 
+                        aria-atomic="true"
+                        aria-label="Focus timer display">
+                        <span id="timer-minutes" aria-label="Minutes">25</span><span aria-hidden="true">:</span><span id="timer-seconds" aria-label="Seconds">00</span>
+                    </div>
+                    <div class="timer-controls" role="group" aria-label="Timer controls">
+                        <button 
+                            id="timer-start" 
+                            class="btn btn-primary" 
+                            aria-label="Start focus timer">
+                            Start
+                        </button>
+                        <button 
+                            id="timer-stop" 
+                            class="btn btn-secondary" 
+                            aria-label="Stop focus timer">
+                            Stop
+                        </button>
+                        <button 
+                            id="timer-reset" 
+                            class="btn btn-secondary" 
+                            aria-label="Reset focus timer to initial duration">
+                            Reset
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- To-Do List Section -->
+            <section class="todo-section" aria-labelledby="todo-heading">
+                <h2 id="todo-heading" class="section-title">To-Do List</h2>
+                <div class="todo-list">
+                    <form id="todo-form" class="todo-form" role="form" aria-label="Add new task form">
+                        <label for="todo-input" class="visually-hidden">New task description</label>
+                        <input 
+                            type="text" 
+                            id="todo-input" 
+                            class="todo-input" 
+                            placeholder="Add a new task..."
+                            maxlength="500"
+                            aria-label="New task description"
+                            aria-describedby="todo-error"
+                            aria-required="true">
+                        <button 
+                            type="submit" 
+                            class="btn btn-primary" 
+                            aria-label="Add new task to list">
+                            Add
+                        </button>
+                    </form>
+                    <div id="todo-error" class="error-message" role="alert" aria-live="assertive" aria-atomic="true"></div>
+                    <ul 
+                        id="todo-list" 
+                        class="task-list" 
+                        role="list" 
+                        aria-label="Task list"
+                        aria-live="polite"
+                        aria-relevant="additions removals">
+                        <!-- Tasks will be dynamically inserted here -->
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Quick Links Section -->
+            <section class="links-section" aria-labelledby="links-heading">
+                <h2 id="links-heading" class="section-title">Quick Links</h2>
+                <div class="quick-links">
+                    <form id="links-form" class="links-form" role="form" aria-label="Add new quick link form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="link-name" class="visually-hidden">Link name</label>
+                                <input 
+                                    type="text" 
+                                    id="link-name" 
+                                    class="link-input" 
+                                    placeholder="Link name"
+                                    aria-label="Link name"
+                                    aria-required="true"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="link-url" class="visually-hidden">Link URL</label>
+                                <input 
+                                    type="url" 
+                                    id="link-url" 
+                                    class="link-input" 
+                                    placeholder="https://example.com"
+                                    aria-label="Link URL starting with http or https"
+                                    aria-describedby="link-error"
+                                    aria-required="true"
+                                    required>
+                            </div>
+                            <button 
+                                type="submit" 
+                                class="btn btn-primary" 
+                                aria-label="Add quick link to list">
+                                Add Link
+                            </button>
+                        </div>
+                    </form>
+                    <div id="link-error" class="error-message" role="alert" aria-live="assertive" aria-atomic="true"></div>
+                    <div 
+                        id="links-container" 
+                        class="links-container" 
+                        role="list" 
+                        aria-label="Quick links list"
+                        aria-live="polite"
+                        aria-relevant="additions removals">
+                        <!-- Quick links will be dynamically inserted here -->
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Settings Modal -->
+    <div 
+        id="settings-modal" 
+        class="modal" 
+        role="dialog" 
+        aria-labelledby="settings-modal-title" 
+        aria-describedby="settings-modal-description"
+        aria-modal="true"
+        aria-hidden="true">
+        <div class="modal-overlay" aria-hidden="true"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="settings-modal-title" class="modal-title">Settings</h2>
+                <button 
+                    id="settings-close" 
+                    class="btn-close" 
+                    aria-label="Close settings dialog">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="settings-modal-description" class="visually-hidden">
+                    Configure your dashboard preferences including your name and focus timer duration
+                </p>
+                <form id="settings-form" class="settings-form">
+                    <div class="form-group">
+                        <label for="user-name">Your Name</label>
+                        <input 
+                            type="text" 
+                            id="user-name" 
+                            class="form-control" 
+                            placeholder="Enter your name"
+                            maxlength="50"
+                            aria-describedby="name-help name-error">
+                        <small id="name-help" class="form-text">
+                            Personalize your greeting (1-50 characters)
+                        </small>
+                        <div id="name-error" class="error-message" role="alert" aria-live="assertive" aria-atomic="true"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="pomodoro-duration">Focus Timer Duration (minutes)</label>
+                        <input 
+                            type="number" 
+                            id="pomodoro-duration" 
+                            class="form-control" 
+                            min="1" 
+                            max="120" 
+                            placeholder="25"
+                            aria-describedby="duration-help duration-error">
+                        <small id="duration-help" class="form-text">
+                            Set timer duration (1-120 minutes)
+                        </small>
+                        <div id="duration-error" class="error-message" role="alert" aria-live="assertive" aria-atomic="true"></div>
+                    </div>
+                    <div class="form-actions">
+                        <button 
+                            type="button" 
+                            id="clear-name" 
+                            class="btn btn-secondary"
+                            aria-label="Clear your custom name">
+                            Clear Name
+                        </button>
+                        <button 
+                            type="button" 
+                            id="reset-duration" 
+                            class="btn btn-secondary"
+                            aria-label="Reset timer duration to 25 minutes">
+                            Reset Duration
+                        </button>
+                        <button 
+                            type="submit" 
+                            class="btn btn-primary"
+                            aria-label="Save settings and close dialog">
+                            Save Settings
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
